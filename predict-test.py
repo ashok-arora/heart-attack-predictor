@@ -1,11 +1,9 @@
 import requests
 import json
 
-flask_url = "127.0.0.1:6000"
-docker_url = "127.0.0.1:7000"
-heroku_url = "https://midterm-project-spotify.herokuapp.com/predict"
+url = "https://capstone-project-hap.herokuapp.com/predict"
 
-patient = {
+payload = json.dumps({
     "age": 63,
     "sex": 1,
     "cp": 3,
@@ -18,7 +16,12 @@ patient = {
     "oldpeak": 2.3,
     "slp": 0,
     "caa": 0,
-    "thall": 14
+    "thall": 1
+})
+headers = {
+    'Content-Type': 'application/json'
 }
 
-print(requests.post(heroku_url, json=song).json())
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
